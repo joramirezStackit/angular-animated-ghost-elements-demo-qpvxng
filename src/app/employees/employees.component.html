@@ -1,0 +1,30 @@
+<mat-toolbar>
+  <mat-toolbar-row fxLayout fxLayoutAlign="start center" fxLayoutGap="25px">
+    <p>Company Employees w/ Ghosts </p>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="content"> 
+  <div fxLayout="row wrap" class="list">
+  
+    <user-list [users]="users$ | async" 
+               fxLayout="row wrap">
+    </user-list>
+
+    <ghost-list *ngIf="!useSpinner"
+                [ghosts]="ghosts"                 
+                fxLayout="row wrap">
+    </ghost-list>  
+
+  
+  </div>
+  <mat-spinner class="spinner" *ngIf="ghosts.length && useSpinner"></mat-spinner>
+</div>
+
+<div class="footer">
+  <div fxLayout fxLayoutAlign="center center" fxLayoutGap="25px" *ngIf="!ghosts.length">
+    <p>Test loading using spinners and ghosts:</p>
+    <button mat-flat-button color="warn" (click)="reloadList(true)">Reload</button>
+    <button mat-flat-button color="primary" (click)="reloadList()">Reload w/ Ghosts</button>
+  </div>
+</div>
